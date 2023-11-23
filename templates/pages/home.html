@@ -1,0 +1,793 @@
+{%extends 'partials/base.html'%}
+{% load static %}
+{%block title%} Home Page {%endblock%}
+
+{% block content %}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anek+Kannada&family=Kanit&family=Kdam+Thmor+Pro&family=Nunito+Sans:opsz,wght@6..12,600&family=Oswald&family=Poppins:wght@200;400;600&display=swap');
+        body{
+            font-family: oswald;
+            font-size: 15px;
+        }
+        .text{
+            background-image: url("/media/portfolio/back.jpg");
+            background-size: cover;
+            height: 400px;
+            background-repeat: no-repeat;
+            text-align: center;
+        }
+        .text{
+            z-index: 999;
+            bottom: 0;
+        }
+        #myBtn {
+            display: none;
+            padding-top: 10px;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            font-size: 18px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 4px;
+            background-color: white;
+            }
+
+            #myBtn:hover {
+            background-color: white;
+            }
+            .header-title
+        {
+          /* text-align: center; */
+          /* color:#00bfff; */
+          color: #0895c4;
+        }
+
+        #tip 
+        {
+            display:none;  
+        }
+
+        .fadeIn
+        {
+          animation-duration: 3s;
+        }
+
+        .form-control
+        {
+        	border-radius:0px;
+        	/* border:1px solid #EDEDED; */
+        }
+
+        .form-control:focus
+        {
+        	border:1px solid #00bfff;
+        }
+
+        .textarea-contact
+        {
+        	resize:none; 
+        }
+
+        .btn-send
+        {
+        	border-radius: 0px;
+        	border:1px solid #0895c4;
+        	background:#0895c4;
+        	color:#fff; 
+        }
+
+        .btn-send:hover
+        {
+        	border:1px solid #00bfff;
+        	background:#fff;
+        	color:#00bfff;
+        	transition:background 0.5s;   
+        }
+
+        .second-portion
+        {
+        	margin-top:50px; 
+        }
+
+		@import "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css";
+		@import "http://fonts.googleapis.com/css?family=Roboto:400,500";
+
+		.box > .icon { text-align: center; position: relative; }
+		.box > .icon > .image { position: relative; z-index: 2; margin: auto; width: 88px; height: 88px; border: 8px solid white; line-height: 88px; border-radius: 50%; background: #0895c4; vertical-align: middle; }
+		.box > .icon:hover > .image { background: #333; }
+		.box > .icon > .image > i { font-size: 36px !important; color: #fff !important; }
+		.box > .icon:hover > .image > i { color: white !important; }
+		.box > .icon > .info { margin-top: -24px; background: rgba(0, 0, 0, 0.04); border: 1px solid #e0e0e0; padding: 15px 0 10px 0; min-height:163px;}
+		.box > .icon:hover > .info { background: rgba(0, 0, 0, 0.04); border-color: #e0e0e0; color: white; }
+		.box > .icon > .info > h3.title { font-family: "Robot",sans-serif !important; font-size: 16px; color: #222; font-weight: 700; }
+		.box > .icon > .info > p { font-family: "Robot",sans-serif !important; font-size: 13px; color: #666; line-height: 1.5em; margin: 20px;}
+		.box > .icon:hover > .info > h3.title, .box > .icon:hover > .info > p, .box > .icon:hover > .info > .more > a { color: #222; }
+		.box > .icon > .info > .more a { font-family: "Robot",sans-serif !important; font-size: 12px; color: #222; line-height: 12px; text-transform: uppercase; text-decoration: none; }
+		.box > .icon:hover > .info > .more > a { color: #fff; padding: 6px 8px; background-color: #63B76C; }
+		.box .space { height: 30px; }
+
+		@media only screen and (max-width: 768px)
+		{
+			.contact-form
+			{
+				margin-top:25px; 
+			}
+
+			.btn-send
+			{
+				width: 100%;
+				padding:10px; 
+			}
+
+			.second-portion
+			{
+				margin-top:25px; 
+			}
+		}
+        .tab-titles{
+            display: flex;
+            margin: 20px 0px 30px;
+        }
+        .tab-links{
+            margin-right: 50px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+        }
+        .tab-links::after{
+            content: '';
+            width: 0;
+            height: 3px;
+            background: #0895c4;
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            transition: 0.5s;
+
+        }
+        .active-link::after{
+            width: 50%;
+            /* background: #ff004f; */
+        }
+        .tab-contents ul li{
+            list-style-type: none;
+            margin: 10px 0;
+            margin-left: -35px;
+        }
+        .tab-contents ul li span{
+            color: #0895c4;
+            font-size: 14px;
+        }
+        .tab-contents{
+            display: none;
+        }
+
+        .active-tab{
+            display: block;
+        }
+
+
+        /* ------------SERVICES-------------- */
+        #services{
+            margin-top: 100px;
+        }
+        .services-list{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 40px;
+            margin-top: 50px;
+        }
+        .services-list div{
+            background: linear-gradient(to bottom, #00bfff,rgb(7, 165, 165));
+            /* background: linear-gradient(to bottom, #0895c4,rgb(7, 165, 165)); */
+            /* background: #333; */
+            padding: 40px;
+            font-size: 13px;
+            font-weight: 300;
+            border-right: 10px;
+            color: white;
+            border-radius: 15px;
+            transition: transform 0.5s;
+        }
+
+        .services-list div a{
+            color: black;
+            text-decoration: none;
+        }
+
+        .services-list div i{
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .services-list div:hover{
+            background: #0895c4;
+            transform: translateY(-10px);
+
+        }
+        
+
+        .my_work{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 40px;
+            margin-top: 50px;
+        }
+        .work{
+            border-radius: 13px;
+            position: relative;
+            overflow: hidden;
+            display: none;
+        }
+
+        .work:nth-child(1){
+            display: block;
+        }
+        .work:nth-child(2){
+            display: block;
+        }
+        .work:nth-child(3){
+            display: block;
+        }
+
+
+
+        .work img{
+            width: 100%;
+            border-radius: 13px;
+            display: block;
+            height: 300px;
+            transition: transform 0.5s;
+        }
+        .work:hover{
+            border-radius: 13px;
+
+        }
+        .work:hover img{
+            transform: scale(1.1);
+        }
+        .layer{
+            width: 100%;
+            height: 0;
+            background: linear-gradient(rgba(0,0,0,0.6), rgb(24, 193, 193 )); /*rgb(24, 193, 193  #00bfff*/
+            border-radius: 13px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            overflow: hidden;
+            color: white;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            font-size: 14px;
+            transition: height 0.5s;
+        }
+        .layer a{
+            text-decoration: none;
+            margin-top: 20px;
+            color: #00bfff;
+            line-height: 60px;
+            width: 60px;
+            height: 60px;
+            background: #fff;
+            border-radius: 50%;
+
+        }
+        .layer h3{
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .work:hover .layer{
+            height: 100%;
+        }
+        
+        .btnMore{
+            /* margin-top: 25px; */
+            background: #0895c4;
+            color: white;
+            margin:30px auto; 
+            width: 30%; 
+            padding: 10px 0;
+            cursor: pointer;
+            transition: transform 0.5s;
+        }
+
+        .btnMore:hover{
+            transform: scale(1.1);
+        }
+        .seeMore{
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-radius: 10px;
+        }
+        .row-about{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 40px;
+            margin-top: 50px;
+        }
+        
+
+    </style>
+
+    <button onclick="topFunction()" id="myBtn" class="py-4" title="Go to top"><i class="fa fa-chevron-up fa-bounce fa-2xl" style="color: dodgerblue; " ></i></button>
+    <div id="landing_page">
+        <div class="text">
+            
+        </div>
+        <div class="intro text-center mt-1" style="font-size: 22px;"> 
+            <p><strong style="font-size: 25px;">Welcome, <br></strong> My name is Alice Njoki Kamuyu, 
+            <br> A Software Engineer</p>
+            <a href="#about" class="btn btn-primary btn-default" style="color: white ; border-radius: 30px;">Get Started</a></button>
+        </div>
+    </div>
+
+    <div id="about " style="margin-top: 100px;">
+        <div class="container">
+            <h1 class="header-title" >ABOUT ME</h1>
+            <hr>
+            <div class="row-about">
+                <div>
+                    <!-- <div class="card"> -->
+                    <img src="/media/portfolio/me.jpg" alt="" height="430px" width="450px" style="border-radius: 50%;">
+                    <!-- </div> -->
+                </div>
+                <div>
+                    <p>I am a Software Developer by profession. I am currently pursing a Bachelors Degree in Computer Science at Maasai Mara University. 
+                        I have been able to acquire several programming skills in the tech world some of which i use to solve existing problems in the world.
+                        I Have worked on several projects using the named programming projects above which i have linked in my works tab. Here is a list of things i can do:
+                    </p>
+
+                    <div class="tab-titles">
+                        <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
+                        <p class="tab-links" onclick="opentab('experience')">Experience</p>
+                        <p class="tab-links" onclick="opentab('education')">Education</p>
+                    </div>
+
+                    <div class="tab-contents active-tab" id="skills">
+                        <ul>
+                            <li><span>Web Development</span><br> Designing responsive web apps</li>
+                            <li><span>Frontend Development</span><br> Capable of developing responsive user-friendly web applications using HTML, CSS, Javascript and Bootstrap  with a focus in creating intuitive user interfaces</li>
+                            <li><span>Backend Development</span><br>Develop server-side apps using Django</li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-contents" id="experience">
+                        <ul>
+                            <li><span>2023-2023</span><br> Software Developer intern at Machini Technologies </li>
+                            <li><span>2023-2023</span><br>IT consultant at PC.Kinyanjui Technical College</li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-contents" id="education">
+                        <ul>
+                            <li><span>2021-present</span><br> Bachelor's Degree in Computer Science at Maasai Mara University</li>
+                            <li><span>2022-2023</span><br>IBM certificate for Backend Development </li>
+                            <li><span>2023-2023</span><br>Certificate from Andela for React completion </li>
+                            <li><span>2021-2022</span><br> Certificate from Freecodecamp for Frontend Dev basics</li>
+                            
+                        </ul>
+                    </div>
+                    
+                    <!-- <p style="padding-left: 25px;">
+                        <i class="fa fa-check-circle" style="color: dodgerblue; " aria-hidden="true"></i> Develop server-side apps using django <br>
+                        <i class="fa fa-check-circle" style="color: dodgerblue; " aria-hidden="true"></i> Capable of developing responsive user-friendly web applications using HTML, CSS, Javascript and Bootstrap  with a focus in creating intuitive user interfaces<br>
+                        <i class="fa fa-check-circle" style="color: dodgerblue; " aria-hidden="true"></i> Capable of building Retful APIs to expose functionality and data to client applications using Django <br>
+                        <i class="fa fa-check-circle" style="color: dodgerblue; " aria-hidden="true"></i> Knowledgeable in writing unit test for front end and backend using jest and pytest to ensure readability of code<br>
+                        <i class="fa fa-check-circle" style="color: dodgerblue; " aria-hidden="true"></i> Ability to collaborate using version control Git/Github<br>
+                        <i class="fa fa-check-circle" style="color: dodgerblue; " aria-hidden="true"></i> Work with data structures like lists, arrays and more in python and javascript <br>
+                        <i class="fa fa-check-circle" style="color: dodgerblue; " aria-hidden="true"></i> Using Object Oriented Programming(OOP) to manage and manipulate data<br>
+                        <i class="fa fa-check-circle" style="color: dodgerblue; " aria-hidden="true"></i> Capable of documenting APIs using Postman for clear Project documentation <br>
+
+
+                    </p> -->
+
+                    <!-- <p>As of Today i stand at the intersection of technology and empathy, armed with a diverse skill set in coding, research and product management</p> -->
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="services">
+        <div class="container">
+            <h1 class="header-title">My Services</h1>
+            <hr>
+            <div class="services-list">
+                <div>
+                    <i class="fa-solid fa-code"></i>
+                    <h2>Web Design and Development</h2>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores, omnis possimus perferendis adipisci, assumenda ut corrupti, consectetur sed ex porro quod. Labore ex consequatur natus saepe ab provident aut numquam.</p>
+                    <a href="#contact">Learn more</a>
+                </div>
+                <div>
+                    <i class="fa-solid fa-layer-group"></i>
+                    <h2>Backend Development</h2>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores, omnis possimus perferendis adipisci, assumenda ut corrupti, consectetur sed ex porro quod. Labore ex consequatur natus saepe ab provident aut numquam.</p>
+                    <a href="">learn more</a>
+                </div>
+                <div>
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <h2>Frontend Development</h2>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores, omnis possimus perferendis adipisci, assumenda ut corrupti, consectetur sed ex porro quod. Labore ex consequatur natus saepe ab provident aut numquam.</p>
+                    <a href="">learn more</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        
+    <div class="works" style="margin-top: 100px;">
+        <div class="container"> 
+            <h1 class="header-title">MY WORK</h1>
+            <hr>
+            <div class="my_work">
+                <div class="work">
+                    <img class="" src="/media/portfolio/turkey sliders.jpg" alt="">
+                    <div class="layer">
+                        <h3>Food App</h3>
+                        <p>The app is a user friendly app where a user can be able to shop for food and checkout successfully</p>
+                        <a href="https://github.com/Alicenjoki/food_app.git"><i class="fa-solid fa-up-right-from-square"></i></a>
+                    </div>
+
+                </div>
+
+                <div class="work">
+                    <img class="" src="/media/portfolio/inv.jpg" alt="">
+                    <div class="layer">
+                        <h3>IMS App</h3>
+                        <p>The app is a user friendly inventory management system app where a user be able to perform crude operations on their stock and also get to see the statistics of each product</p>
+                        <a href="https://github.com/Alicenjoki/food_app.git"><i class="fa-solid fa-up-right-from-square"></i></a>
+                    </div>
+                </div>
+
+                <div class="work">
+                    <img class="" src="/media/portfolio/blog.jpg" alt="">
+                    <div class="layer">
+                        <h3>Blog App</h3>
+                        <p>The app is a user friendly app for all blog lovers where a user can be able to view blogs, comment, like and also post a blog</p>
+                        <a href="https://github.com/Alicenjoki/myDjango_blog_app.git"><i class="fa-solid fa-up-right-from-square"></i></a>
+                    </div>
+                </div>
+
+                <div class="work">
+                    <img class="" src="/media/portfolio/turkey sliders.jpg" alt="">
+                    <div class="layer">
+                        <h3>Food App</h3>
+                        <p>The app is a user friendly app where a user can be able to shop for food and checkout successfully</p>
+                        <a href="https://github.com/Alicenjoki/food_app.git"><i class="fa-solid fa-up-right-from-square"></i></a>
+                    </div>
+
+                </div>
+
+                <div class="work">
+                    <img class="" src="/media/portfolio/inv.jpg" alt="">
+                    <div class="layer">
+                        <h3>IMS App</h3>
+                        <p>The app is a user friendly inventory management system app where a user be able to perform crude operations on their stock and also get to see the statistics of each product</p>
+                        <a href="https://github.com/Alicenjoki/food_app.git"><i class="fa-solid fa-up-right-from-square"></i></a>
+                    </div>
+                </div>
+
+                <div class="work">
+                    <img class="" src="/media/portfolio/blog.jpg" alt="">
+                    <div class="layer">
+                        <h3>Blog App</h3>
+                        <p>The app is a user friendly app for all blog lovers where a user can be able to view blogs, comment, like and also post a blog</p>
+                        <a href="https://github.com/Alicenjoki/myDjango_blog_app.git"><i class="fa-solid fa-up-right-from-square"></i></a>
+                    </div>
+                </div>
+            
+
+                <!-- <p style="text-align: center;">I have worked on several projects worked on several projects using the followng technologies</p>
+                <div class="row mb-5 mt-3" style="display: flex; text-align: center; justify-content: center; ">
+                    <div class="html "><img src="/media/portfolio/html.webp" alt="" height="50px" width="60px"></div>
+                    <div class="html pl-3"><img src="/media/portfolio/css.webp" alt="" height="50px" width="60px"></div>
+                    <div class="html pl-3"><img src="/media/portfolio/js.webp" alt="" height="50px" width="50px"></div>
+                    <div class="html pl-3"><img src="/media/portfolio/python.png" alt="" height="50px" width="60px"></div>
+                    <div class="html pl-3"><img src="/media/portfolio/bootstrap.png" alt="" height="50px" width="60px"></div>
+                    <div class="html pl-4"><img src="/media/portfolio/django.webp" alt="" height="50px" width="60px"></div>
+                </div> -->
+            </div>
+            
+            <!-- <div class="row">
+                <div class="col-md-3 d-flex align-items-stretch mb-5">
+                    <div class="card text-left h-60">
+                        <img class="" src="/media/portfolio/egg cheese bacon.jpeg" alt=""> -->
+                        
+                            <!-- <p style="font-size: 18px;" class="card-title">Food App</p>
+                            <a class="btn btn-primary" href="https://github.com/Alicenjoki/django-expense-track-system.git">View Project</a> -->
+                        
+                    <!-- </div>
+                </div> -->
+
+            <div id="seeMore" class="seeMore" >
+                <button class="btn btnMore" id="btn">see more </button>
+            </div>
+
+                
+        <!-- <div class="see" id="see" style="align-items: center; text-align: center; justify-content: center;">
+            <a href="" id="myBtn" class="btn  see-more">see more <i class="fa-solid fa-up-right-from-square"></i></a>
+        </div> -->
+            
+        </div>
+    </div>
+
+
+
+
+    <div id="contact" style="margin-top: 100px;">
+        <div class="container animated fadeIn">
+            <h1 class="header-title"> CONTACT </h1>
+            <hr>
+            <div class="row">
+                <div class="col-sm-12" id="parent">
+                    <div class="row-about">
+                        <div style="top: 0;">
+                            <h1 class="mb-3" style="font-size: 70px;">Get In Touch {{name}} </h1>
+                            <!-- <p style="padding-left: 10px;">Reach out also through other platforms </p> -->
+                            <section class="mb-4">
+                                <!-- Facebook -->
+                                <a class="btn btn-outline-light m-1" href="https://www.facebook.com/alice.kamuyu.12?mibextid=ZbWKwL" role="button">
+                                    <i class="fa fa-facebook" style="background: #0895c4; border-radius: 50%; padding: 10px;"></i>
+                                </a>
+                            
+                                <!-- Twitter -->
+                                <a class="btn btn-outline-light btn-floating m-1" href="https://x.com/kamuyu_alice?t=9diQDQuoc6S2MKm82nFyHQ&s=09" role="button">
+                                    <i class="fa fa-twitter" style="background: #0895c4; border-radius: 50%; padding: 10px;"></i>
+                                </a>
+                            
+                                <!-- Instagram -->
+                                <a class="btn btn-outline-light btn-floating m-1" href="https://instagram.com/njo_ki3?igshid=YTQwZjQ0NmI0OA==" role="button">
+                                    <i class="fa fa-instagram" style="background: #0895c4; border-radius: 50%; padding: 10px;"></i>
+                                </a>
+                            
+                                <!-- Linkedin -->
+                                <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/in/alice-kamuyu-95597521a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" role="button">
+                                    <i class="fa fa-linkedin" style="background: #0895c4; border-radius: 50%; padding: 10px;"></i>
+                                </a>   
+                                
+                            </section>
+
+                            <p style="padding-left: 10px; margin-top: 30px;">Feel free to reach out any time and i will be able to reply to you in a few hours.</p>
+                        </div>
+                
+                        <div>
+                            <form class="contact-form" method="post">
+                                {%csrf_token%}
+                                <div class="form-group">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Name" >
+                                </div>
+                            
+                            
+                                <div class="form-group form_left">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" >
+                                </div>
+                            
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="phone"  placeholder="Mobile No." >
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control textarea-contact" rows="5" id="comment" name="message" placeholder="Type Your Message/Feedback here..."></textarea>
+                                    <br>
+                                    <button class="btn btn-default btn-block btn-send"> <span class="glyphicon glyphicon-send"></span> Send </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container second-portion">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-lg-4">
+                    <div class="box">							
+                        <div class="icon">
+                            <div class="image"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                            <div class="info">
+                                <h3 class="title">MAIL & WEBSITE</h3>
+                                <p>
+                                    <i class="fa fa-envelope" aria-hidden="true"></i> &nbsp alicekamuyu385@gmail.com
+                                    <br>
+                                    <br>
+                                    <i class="fa fa-globe" aria-hidden="true"></i> &nbsp njokikamuyu503@gmail.com
+                                </p>
+                            
+                            </div>
+                        </div>
+                        <div class="space"></div>
+                    </div> 
+                </div>
+                    
+                <div class="col-xs-12 col-sm-6 col-lg-4">
+                    <div class="box">							
+                        <div class="icon">
+                            <div class="image"><i class="fa fa-mobile" aria-hidden="true"></i></div>
+                            <div class="info">
+                                <h3 class="title">CONTACT</h3>
+                                <p>
+                                    <i class="fa fa-mobile" aria-hidden="true"></i> &nbsp (+254) 795850801
+                                    <br>
+                                    <br>
+                                    <i class="fa fa-mobile" aria-hidden="true"></i> &nbsp  (+254) 747850801
+                                </p>
+                            </div>
+                        </div>
+                        <div class="space"></div>
+                    </div> 
+                </div>
+                    
+                <div class="col-xs-12 col-sm-6 col-lg-4">
+                    <div class="box">							
+                        <div class="icon">
+                            <div class="image"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                            <div class="info">
+                                <h3 class="title">ADDRESS</h3>
+                                <p>
+                                        <i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp Ngong Road
+                                        Nairobi, Kenya.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="space"></div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+
+    <div class="footer">
+    <footer class="bg-dark text-center text-white">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+            <!-- Facebook -->
+            <a class="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/alice.kamuyu.12?mibextid=ZbWKwL" role="button">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        
+            <!-- Twitter -->
+            <a class="btn btn-outline-light btn-floating m-1" href="https://x.com/kamuyu_alice?t=9diQDQuoc6S2MKm82nFyHQ&s=09" role="button">
+                <i class="fab fa-twitter"></i>
+            </a>
+        
+            <!-- Google -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                <i class="fab fa-google"></i>
+            </a>
+        
+            <!-- Instagram -->
+            <a class="btn btn-outline-light btn-floating m-1" href="https://instagram.com/njo_ki3?igshid=YTQwZjQ0NmI0OA==" role="button">
+                <i class="fab fa-instagram"></i>
+            </a>
+        
+            <!-- Linkedin -->
+            <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/in/alice-kamuyu-95597521a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" role="button">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        
+            <!-- Github -->
+            <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/Alicenjoki" role="button">
+                <i class="fab fa-github"></i>
+            </a>
+            </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+        
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2020 Copyright:
+            <a class="text-white" href="https://mdbootstrap.com/">alicekamuyuportfolio.com</a>
+        </div>
+        <!-- Copyright -->
+        </footer>
+    <!-- Footer -->
+    </div>
+    <!-- <div class="top">
+        <a class="top-link hide" href="" id="js-top"> -->
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6"><path d="M12 6H0l6-6z"/></svg> -->
+            <!-- <span class="screen-reader-text">Back to top</span>
+        </a>
+    </div> -->
+
+    <!-- <script src="{% static 'js/to_top.js' %}"></script> -->
+    <script>
+        var loadMore = document.querySelector('.work');
+        var btn = document.querySelector('#btn');
+
+        var currentItem = 3;
+        btn.addEventListener('click', function(){
+            for(var i=currentItem; i < currentItem +3; i++){
+                
+                if(loadMore[i]){
+                    loadMore[i].style.display = 'block';
+                }
+            }
+            currentItem += 3;
+            // if(currentItem >= loadMore.length){
+            //     event.target.style.display='none';
+            // }
+        });
+
+
+
+        // let loadMoreBtn = document.querySelector("#seeMore");
+        // let currentItem =3;
+
+        // loadMoreBtn.onclick = () =>{
+        //     let boxes = [... document.querySelectorAll('.container .my_work .work')];
+        //     for(var i = currentItem; i < currentItem + 3; i++){
+        //         boxes[i].style.display = 'inline-block;'
+
+        //     }
+        //     currentItem += 3;
+        // }
+
+
+        //function myFunction(){
+        //    var moreContext = document.getElementById("more");
+        //    var btnTxt = document.getElementById("myBtn");
+
+        //    if(moreContext.style.display==="none"){
+
+        //        btnTxt.innerHTML = "see more";
+        //    }
+        //    else{
+        //        btnTxt.innerHTML = "see less";
+
+        //    }
+        //}
+
+
+        var tablinks = document.getElementsByClassName('tab-links');
+        var tabcontents = document.getElementsByClassName('tab-contents');
+
+        function opentab(tabname){
+            for(tablink of tablinks){
+                tablink.classList.remove("active-link")
+            }
+
+            for(tabcontent of tabcontents){
+                tabcontent.classList.remove("active-tab")
+            }
+            event.currentTarget.classList.add("active-link");
+            document.getElementById(tabname).classList.add('active-tab');
+
+        }
+
+
+        // Get the button
+        let mybutton = document.getElementById("myBtn");
+        
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {scrollFunction()};
+        
+        function scrollFunction() {
+          if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+            mybutton.style.display = "block";
+          } else {
+            mybutton.style.display = "none";
+          }
+        }
+        
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+        }
+    </script>
+{%endblock%}
